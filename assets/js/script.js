@@ -1,5 +1,13 @@
 // ====== Fake API Data ======
 
+const aboutData = {
+    description: [
+        "We are a shariah-compliant venture capital firm committed to empowering high-growth technology companies in the MENA region.",
+        "As a subsidiary of KFH Capital, the investment arm of Kuwait Finance House—one of largest Islamic banks in the world—we leverage our unique position to provide unparalleled strategic support, industry expertise, and access to an extensive global network.",
+        "Our mission is to drive innovation and success, fostering the next generation of tech leaders in the region."
+    ]
+};
+
 const teamData = {
     abdulmohsen: {
         name: "Abdulmohsen Alhamad",
@@ -45,17 +53,17 @@ const teamData = {
 
 const directorData = [
     {
+        name: "Abdullah Alhaddad",
+        title: "Chief Investment Banking Officer",
+        company: "at KFH Capital",
+        linkedin: "https://www.linkedin.com/in/abdullah-alhaddad-babb1b28/"
+    },
+    {
         name: "Abdulmohsen Alhamad",
         title: "Senior Vice President",
         company: "at KFH Capital",
         linkedin: "https://www.linkedin.com/in/abdulmohsenalhamad/"
     },
-    {
-        name: "Abdullah Alhaddad",
-        title: "Chief Investment Banking Officer",
-        company: "at KFH Capital",
-        linkedin: "https://www.linkedin.com/in/abdullah-alhaddad-babb1b28/"
-    }
 ];
 
 const portfolioData = [
@@ -104,8 +112,16 @@ const exitData = [
 
 // ====== Dynamic Render Functions ======
 
+function renderAbout() {
+    const container = document.getElementById('aboutData');
+    container.innerHTML = '';
+    aboutData.description.forEach(desc => {
+        container.innerHTML += `<p>${desc}</p>`;
+    });
+}
+
 function renderTeam() {
-    const container = document.querySelector('.team-section .row.justify-content-between');
+    const container = document.getElementById('teamData');
     container.innerHTML = '';
     for (const key in teamData) {
         const member = teamData[key];
@@ -125,7 +141,7 @@ function renderTeam() {
 }
 
 function renderDirectors() {
-    const container = document.querySelectorAll('.team-section .container')[1].querySelector('.row');
+    const container = document.getElementById('directorData');
     container.innerHTML = '';
     directorData.forEach((dir, i) => {
         container.innerHTML += `
@@ -144,7 +160,7 @@ function renderDirectors() {
 }
 
 function renderPortfolio() {
-    const container = document.querySelector('#portfolio .row');
+    const container = document.getElementById('portfolioData');
     container.innerHTML = '';
     portfolioData.forEach(project => {
         container.innerHTML += `
@@ -163,7 +179,7 @@ function renderPortfolio() {
 }
 
 function renderExit() {
-    const container = document.querySelector('#exit .row');
+    const container = document.getElementById('exitData');
     container.innerHTML = '';
     exitData.forEach(company => {
         container.innerHTML += `
@@ -179,6 +195,7 @@ function renderExit() {
 
 // ====== Initialize Everything ======
 
+renderAbout();
 renderTeam();
 renderDirectors();
 renderPortfolio();

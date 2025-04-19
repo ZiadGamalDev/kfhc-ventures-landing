@@ -51,20 +51,34 @@ const teamData = {
     }
 };
 
-const directorData = [
-    {
+const directorData = {
+    abdullah: {
         name: "Abdullah Alhaddad",
         title: "Chief Investment Banking Officer",
         company: "at KFH Capital",
+        details: [
+            "Oversees DCM, ECM, Private Equity/Direct Investment unit",
+            "Led landmark transactions in Sukuk, Financial Advisory, and M&A",
+            "Board member in several companies",
+            "Bachelor's degree in Accounting & Auditing from Kuwait University"
+        ],
+        image: "assets/img/director/Abdullah-Alhaddad.png",
         linkedin: "https://www.linkedin.com/in/abdullah-alhaddad-babb1b28/"
     },
-    {
+    abdulmohsen: {
         name: "Abdulmohsen Alhamad",
         title: "Senior Vice President",
         company: "at KFH Capital",
+        details: [
+            "Extensive experience in VC & PE",
+            "Led exits of several notable companies in the region",
+            "Board member in several companies",
+            "BA in Finance from University of Colorado and CFA charterholder (CFA Institute)"
+        ],
+        image: "assets/img/director/Abdulmohsen-Alhamad.png",
         linkedin: "https://www.linkedin.com/in/abdulmohsenalhamad/"
-    },
-];
+    }
+};
 
 const portfolioData = [
     {
@@ -143,20 +157,20 @@ function renderTeam() {
 function renderDirectors() {
     const container = document.getElementById('directorData');
     container.innerHTML = '';
-    directorData.forEach((dir, i) => {
+    for (const key in directorData) {
+        const dir = directorData[key];
         container.innerHTML += `
             <div class="col-md-4 col-sm-6">
                 <div class="team-card">
-                    <h5 class="team-name">${dir.name}</h5>
+                    <h5 data-director="${key}" class="team-name director-name">${dir.name}</h5>
                     <p><span class="team-title fw-bold">${dir.title}</span><br>${dir.company}</p>
                     <a href="${dir.linkedin}" target="_blank" class="social-icon">
                         <i class="fab fa-linkedin fa-lg"></i>
                     </a>
                 </div>
             </div>
-            ${i === 0 ? '<div class="col-md-1 d-flex align-items-center justify-content-center"><div class="thinner-vertical-line"></div></div>' : ''}
         `;
-    });
+    }
 }
 
 function renderPortfolio() {
@@ -203,7 +217,7 @@ renderExit();
 
 // ====== Modal ======
 
-// Initialize Bootstrap modal
+// Initialize Bootstrap team modal
 const teamModal = new bootstrap.Modal(document.getElementById('teamModal'));
 
 // Handle team member card clicks
@@ -238,6 +252,43 @@ document.querySelectorAll('.team-img').forEach(card => {
     });
 });
 
+// Initialize Bootstrap director modal
+const directorModal = new bootstrap.Modal(document.getElementById('directorModal'));
+
+// Handle director member name clicks
+document.querySelectorAll('.director-name').forEach(name => {
+    name.addEventListener('click', function () {
+        const director = directorData[this.dataset.director];
+
+        if (director) {
+            // Populate modal content
+            const modalContent = document.querySelector('.director-modal-content');
+            modalContent.innerHTML = `
+                <div class="row g-0">
+                    <div class="col-md-5 modal-card-left">
+                        <img src="${director.image}" alt="${director.name}" class="profile-image">
+                        <h2 class="fs-3 mb-2 profile-info">${director.name}</h2>
+                        <p class="fs-5 mb-4 profile-info">${director.title}</p>
+                        <p class="fs-5 mb-4 profile-info">${director.company}</p>
+                        <a href="${director.linkedin}" target="_blank" class="profile-info">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                    <div class="col-md-7 modal-card-right">
+                        <div class="vertical-line"></div>
+                        <div class="content">
+                            <p class="fs-5">${director.details.join('</p><p class="fs-5">')}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Show modal
+            directorModal.show();
+        }
+    });
+});
+
 // Handle contact form submission
 document.getElementById('contactForm').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -263,12 +314,16 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
 // Add navbar background on scroll
 window.addEventListener('scroll', function () {
     const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
     const logo = document.querySelector('.logo');
+
     if (window.scrollY > 100) {
         navbar.classList.add('bg-dark');
+        navLinks.forEach(navLink => navLink.classList.remove('bold-font'));
         logo.style.height = '30px';
     } else {
         navbar.classList.remove('bg-dark');
+        navLinks.forEach(navLink => navLink.classList.add('bold-font'));
         logo.style.height = '70px';
     }
 });

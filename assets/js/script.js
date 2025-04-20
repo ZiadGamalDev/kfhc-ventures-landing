@@ -265,14 +265,15 @@ document.querySelectorAll('.director-name').forEach(name => {
             const modalContent = document.querySelector('.director-modal-content');
             modalContent.innerHTML = `
                 <div class="row g-0">
-                    <div class="col-md-5 modal-card-left">
-                        <img src="${director.image}" alt="${director.name}" class="profile-image">
-                        <h2 class="fs-3 mb-2 profile-info">${director.name}</h2>
-                        <p class="fs-5 mb-4 profile-info">${director.title}</p>
-                        <p class="fs-5 mb-4 profile-info">${director.company}</p>
-                        <a href="${director.linkedin}" target="_blank" class="profile-info">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
+                    <div class="col-md-5 modal-card-left d-flex align-items-center">
+                        <div class="w-100">
+                            <h2 class="fs-3 mb-2 profile-info">${director.name}</h2>
+                            <p class="fs-5 mb-4 profile-info">${director.title}</p>
+                            <p class="fs-5 mb-4 profile-info">${director.company}</p>
+                            <a href="${director.linkedin}" target="_blank" class="profile-info">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="col-md-7 modal-card-right">
                         <div class="vertical-line"></div>
